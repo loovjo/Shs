@@ -1,0 +1,8 @@
+{
+    Generates the number e
+    # - counter
+    ! - factorial
+    e - the number e
+}(#)
+
+1 1 0{1(#!e 1-#!e 1!)/+(#!e-e#!#)*(#!-!#)1+(e!#-#!e)}100*p

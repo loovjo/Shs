@@ -1,0 +1,7 @@
+{
+    Prime number generator. Quite slow
+    ! = Current number
+    # = Divisor test
+}(#)
+
+500,{2>}&{(!-!!)2/i,{2+(!#-!!#)}%{*}/0>}&", "*p

@@ -1,0 +1,6 @@
+{
+    Prints the fibonacci series
+    !, | = Last two numbers, # is counter, > = arrow text
+}(!)
+
+0 0 1{(!|-|!|)+(#!|-|!#)1+" -> "(|!#>-#!|#>!)++p}30*

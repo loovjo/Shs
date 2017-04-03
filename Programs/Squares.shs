@@ -1,0 +1,5 @@
+# ! = Current number, ^ = Squared number
+21, {
+    (!-!!!) *
+    " -> " (^>->^)++
+}%"\n"*p

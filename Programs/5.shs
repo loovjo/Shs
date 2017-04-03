@@ -1,0 +1,2 @@
+# A program which looks like it prints the number 4, but actually prints 5
+{print 2+2;},p
