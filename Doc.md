@@ -94,6 +94,12 @@ Commands: (`a` is top element, `b` is second, etc.)
     ? 1
         a: nN -> a random integer between 0 and a (not inclusive)
         a: nR, a > 0 -> a random number between 0 and a (not inclusive)
+    ; 1
+        a: * -> Nothing, just pop a. Same as (a -). See reorderings
+    . 1:
+        a: * -> Push two copies of a. Same as (a - a a). See reorderings
+
+    :   See variables
 
 ### Reorderings
 
@@ -112,10 +118,7 @@ The tokens before the - are called "binders", while the tokens after are called 
 
 What these does is the following: say we have a reordering like this: `(a b c - b c b a)` and a stack like this: `[1 2 "3"]`. Now, the first part of the reordering, before the `-` become binded to the values on the top of the stack, `a` is binded with `1`, `b` is with `2` and `c` is with `"3"`. Now, after the `-` each binded element is put back. In this case, `b c b a` corresponds to `2 "3" 2 1`. These values are added to the top of the stack, while the originals are removed.
 
-Here are some examples of useful reorderings:
-
-    (a - a a) -> Duplicate the top element of the stack
-    (a - ) -> Remove the top element. This is valid syntax
+Some reorderings, namely `(a - a a)` and `(a -)` are so commonly used that they have been added as regular commands, `(a - a a)` is `.` and `(a -)` is `;`.
 
 If you don't have a `-` in the reordering, it will automatically be inserted in the end. Therefore, the "remove top element" reordering can be written as `(a)`.
 
@@ -136,3 +139,25 @@ Useful tips and tricks:
 
 ### Comments
 Shs doesn't have a specific comment syntax, but instead you could use the fact that functions aren't syntax checked, and write a comment in this way: `{Comment Here}(_)`, this just pushes the comment in a function to the stack and then popping it off.
+
+### Variables
+Shs has command to save a value into a variable, the `:` command. The `:` command takes one argument from the stack, which isn't popped and another argument, the next token in front of it in the code. The token after the `:` isn't executed. When executed, the command saves the value on the stack with the next token as its name. When a command is executed which matches the name of a variables, instead of executing the command, the value of the variable is instead pushed to the stack.
+
+Variables can be set multiple times, but cannot be un-set.
+
+Some examples:
+
+    10 :x       Save the value 10 in the variable x, keeps the 10 on the stack
+    ; [x x]     Remove the 10, and push a list containing two 10's from the variable x
+
+This program is a bit more complex:
+
+    5 :x P         Save the number 5 in x and print it
+    {               Start a block
+        x 10 + :x       Push the variable, add 10 to it and save it again. Keeps the value of the variable on the stack
+        ", "P P         Print it with a comma before
+    }               End the block
+    5*              Execute that code in the block 5 times
+
+It results in the output `5, 15, 25, 35, 45, 55` by updating the value of `x`
+

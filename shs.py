@@ -17,7 +17,7 @@ class Enviroment:
     def pop(self, amount=1):
         res, self.stack = self.stack[:amount], self.stack[amount:]
         return res
-    def peek(self, amount):
+    def peek(self, amount=1):
         return self.stack[:amount]
     def push(self, value):
         self.stack = [value] + self.stack
@@ -64,6 +64,13 @@ def run(code, env=None):
                     env.push(item)
         elif isinstance(item, Parser.Function):
             env.push(item)
+        elif item in env.variables:
+            env.push(env.variables[item])
+        elif item == ":":
+            var_name = code[0]
+            value = env.peek()[0]
+            env.variables[var_name] = value
+            code = code[1:]
         elif isinstance(item, Parser.ShellCommand) and len(item) > 0:
             run_process(item)
         elif len(item) > 0 and item[0] == item[-1] == '"':
@@ -95,8 +102,9 @@ def run(code, env=None):
 if __name__ == "__main__":
     env = Enviroment()
     if len(sys.argv) > 1:
-        prog = open(sys.argv[1], "r").read()
-        run_string(prog, env)
+        for a in sys.argv[1:]:
+            prog = open(a, "r").read()
+            run_string(prog, env)
     else:
         while True:
             try:

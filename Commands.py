@@ -282,6 +282,22 @@ class UnicodeCommand(Command):
         return ord(args[0])
 commands.append(UnicodeCommand())
 
+class PopComamnd(Command):
+    command_char = ";"
+    arity = 1
+    def apply(self, args, env):
+        return env
+commands.append(PopComamnd())
+
+class DupComamnd(Command):
+    command_char = "."
+    arity = 1
+    def apply(self, args, env):
+        env.push(args[0])
+        env.push(args[0])
+        return env
+commands.append(DupComamnd())
+
 def get_command(name):
     for command in commands:
         if command.command_char == name:

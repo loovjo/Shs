@@ -1,17 +1,15 @@
-{
-    Classic Guess-the-number game
-}(#)
+{Classic Guess-the-number game}(#)
 
 {MAX COUNT:}(#) 100
 
-"I'm thinking of a number between 0 and " P (max - max max) P ", can you guess it?" p
+"Now listen closely: I'm thinking of a number between 0 and " P (max - max max) P ", can you guess it?" p
 ? 0 (number count - count number)
 {
     "> " P inp i
     (number guess - number guess number guess) =
-    [{1} {"Ya did it!" p 0}] (idx funcs-funcs idx) @ ~
+    ~
     {
-        "Nah nah, too " P
+        [ "Nah nah, too " "Um, well, technically too " "WHAT ARE YOU DOING too " ] .,?@ P
         (number guess exit - exit number guess number guess)
         < ["small" "big"] (idx lst - lst idx) @ p
         (exit number guess - number guess exit)
@@ -20,4 +18,4 @@
     1 +
     (number exit count - count number exit)
 }^
-"It took " P (count number - number count) P " guesses to get it right" p
+"Good job. It took " P (count number - number count) P " guesses to get it right" p

@@ -1,4 +1,2 @@
-{
-    Calculates the factorial of a bunch of numbers
-}(#)
-20,{1+(!-!!!)P,{1+}%{*}/" -> "P p}%
+{Calculates the factorial of a bunch of numbers}(#)
+20,{1+..P,{1+}%{*}/" -> "P p}%
